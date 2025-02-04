@@ -8,7 +8,8 @@ import {
 } from "../ui/tooltip";
 import useIsMounted from "~/hooks/use-is-mounted";
 
-import hslRgb from "hsl-rgb";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const hslRgb = require("hsl-rgb");
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   address: string;
