@@ -1,6 +1,6 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { ComponentProps, FC, useMemo, useState } from "react";
-import { Address, formatUnits } from "viem";
+import { Address, formatUnits, parseUnits } from "viem";
 import { useReadContract } from "wagmi";
 import { Button } from "~/components/ui/button";
 import {
@@ -11,11 +11,13 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { ERC20ABI } from "~/lib/abis/ERC20";
 import { TinteroVaultABI } from "~/lib/abis/TinteroVault";
 import { useWriteContract } from "wagmi";
+import { Input } from "~/components/ui/input";
+import { Skeleton } from "~/components/ui/skeleton";
+import { Loader2 } from "lucide-react";
 
 interface DepositProps extends ComponentProps<typeof Card> {
   vault: Address;
@@ -24,7 +26,7 @@ interface DepositProps extends ComponentProps<typeof Card> {
 
 const Deposit: FC<DepositProps> = ({ vault, underlying, ...props }) => {
   const { address } = useAppKitAccount();
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState<string>("");
   const { data: symbol } = useReadContract({
     address: underlying,
     abi: ERC20ABI,
@@ -36,7 +38,7 @@ const Deposit: FC<DepositProps> = ({ vault, underlying, ...props }) => {
     functionName: "decimals",
   });
   const amountWithDecimals = useMemo(
-    () => BigInt(amount) * BigInt(10) ** BigInt(decimals ?? 0),
+    () => parseUnits(amount, decimals ?? 0),
     [amount, decimals]
   );
   const { data: shareSymbol } = useReadContract({
@@ -68,7 +70,7 @@ const Deposit: FC<DepositProps> = ({ vault, underlying, ...props }) => {
     args: [address as Address, vault as Address],
   });
 
-  const { writeContract } = useWriteContract();
+  const { writeContract, isPending } = useWriteContract();
 
   const handleDeposit = async () => {
     writeContract({
@@ -103,46 +105,72 @@ const Deposit: FC<DepositProps> = ({ vault, underlying, ...props }) => {
       <CardContent>
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="amount">Amount ({symbol})</Label>
-            <Input
-              id="amount"
-              placeholder="0.00"
-              type="number"
-              value={amount}
-              onChange={(e) => {
-                const amount = Number(e.target.value);
-                if (Number.isFinite(amount)) setAmount(e.target.value);
-              }}
-            />
-            {previewDeposit && shareDecimals ? (
-              <span className="text-muted-foreground text-xs">
-                You will receive{" "}
-                {Number(
-                  formatUnits(BigInt(previewDeposit ?? 0), shareDecimals)
-                ).toFixed(2)}{" "}
-                {shareSymbol} shares
-              </span>
+            <Label htmlFor="amount">Amount</Label>
+            <div className="flex w-full items-center space-x-2">
+              <Input
+                id="amount"
+                placeholder="0.00"
+                className="py-6 px-4 md:text-xl text-bold"
+                value={amount}
+                onChange={(e) => {
+                  if (!decimals) return;
+                  if (e.target.value === "") return setAmount("");
+                  const newValue = e.target.value;
+                  const newAmount = formatUnits(
+                    parseUnits(newValue, decimals),
+                    decimals
+                  );
+                  setAmount(
+                    newValue.endsWith(".") ? `${newAmount}.` : newAmount
+                  );
+                }}
+              />
+              <span>{symbol}</span>
+            </div>
+            {previewDeposit ? (
+              shareDecimals ? (
+                <span className="text-muted-foreground text-xs mt-2">
+                  You will receive{" "}
+                  {Number(
+                    formatUnits(BigInt(previewDeposit ?? 0), shareDecimals)
+                  ).toFixed(2)}{" "}
+                  {shareSymbol} shares
+                </span>
+              ) : (
+                <Skeleton className="h-4 w-[250px]" />
+              )
             ) : null}
           </div>
         </div>
       </CardContent>
       <CardFooter className="flex flex-col">
         <Button
-          disabled={BigInt(amount ?? 0) === BigInt(0)}
+          size="lg"
+          disabled={
+            parseUnits(amount, decimals ?? 0) === BigInt(0) ||
+            isPending ||
+            balance === BigInt(0)
+          }
           className="w-full"
           onClick={notEnoughApproved ? handleApprove : handleDeposit}
         >
-          {notEnoughApproved
-            ? `Approve vault to spend ${symbol}`
-            : `Deposit ${symbol}`}
+          {isPending ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : balance === BigInt(0) ? (
+            "No balance to deposit"
+          ) : notEnoughApproved ? (
+            `Approve vault to spend ${symbol}`
+          ) : (
+            `Deposit ${symbol}`
+          )}
         </Button>
-        {balance && decimals && (
+        {balance && decimals ? (
           <span className="text-muted-foreground text-xs mt-2">
             Balance:{" "}
             {Number(formatUnits(BigInt(balance ?? 0), decimals)).toFixed(2)}{" "}
             {symbol}
           </span>
-        )}
+        ) : null}
       </CardFooter>
     </Card>
   );

@@ -8,11 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { Addreth, ThemeDeclaration } from "addreth";
 import { useTheme } from "next-themes";
 import { Address } from "viem";
 import { Button } from "~/components/ui/button";
-import { useAppKitNetwork } from "@reown/appkit/react";
 import Stats from "~/components/stats";
 import {
   BriefcaseBusiness,
@@ -28,10 +26,10 @@ import vaults from "~/lib/vaults";
 import Image from "next/image";
 import { useMemo } from "react";
 import ProviderLogo from "~/components/provider-logo";
+import { Address as EthAddress } from "~/components/scaffold-eth";
 
 export default function Vaults() {
   const { theme } = useTheme();
-  const { caipNetwork } = useAppKitNetwork();
   const vaultValues = useMemo(() => Array.from(vaults.values()), []);
 
   return (
@@ -99,13 +97,9 @@ export default function Vaults() {
                 <TableCell className="font-medium">{vault.netApy}</TableCell>
                 <TableCell>
                   {theme && (
-                    <Addreth
+                    <EthAddress
                       address={vault.manager as Address}
-                      theme={`unified-${theme}` as ThemeDeclaration}
-                      explorer={(address) => ({
-                        name: "Etherscan",
-                        accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
-                      })}
+                      onlyEnsOrAddress
                     />
                   )}
                 </TableCell>

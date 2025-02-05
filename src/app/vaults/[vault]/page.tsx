@@ -3,10 +3,8 @@ import React, { useMemo } from "react";
 import { TINTERO_VAULT } from "./requests.gql";
 import { useParams } from "next/navigation";
 import { useQuery } from "@urql/next";
-import { Addreth, ThemeDeclaration } from "addreth";
 import { Address, formatUnits } from "viem";
 import { useTheme } from "next-themes";
-import { useAppKitNetwork } from "@reown/appkit/react";
 import useIsMounted from "~/hooks/use-is-mounted";
 import vaults from "~/lib/vaults";
 import ProviderLogo from "~/components/provider-logo";
@@ -32,11 +30,11 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import Spinner from "~/components/ui/spinner";
+import { Address as EthAddress } from "~/components/scaffold-eth";
 
 const Vault = () => {
   const { theme } = useTheme();
   const isMounted = useIsMounted();
-  const { caipNetwork } = useAppKitNetwork();
   const { vault } = useParams();
   const [{ data, fetching }] = useQuery({
     query: TINTERO_VAULT,
@@ -101,13 +99,9 @@ const Vault = () => {
         accessorKey: "collateralAsset",
         header: () => <div>Collateral Asset</div>,
         cell: ({ row }) => (
-          <Addreth
+          <EthAddress
             address={row.original.collateralAsset as Address}
-            theme={`unified-${theme}` as ThemeDeclaration}
-            explorer={(address) => ({
-              name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
-              accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
-            })}
+            onlyEnsOrAddress
           />
         ),
       },
@@ -115,13 +109,9 @@ const Vault = () => {
         accessorKey: "beneficiary",
         header: () => <div>Beneficiary</div>,
         cell: ({ row }) => (
-          <Addreth
+          <EthAddress
             address={row.original.beneficiary as Address}
-            theme={`unified-${theme}` as ThemeDeclaration}
-            explorer={(address) => ({
-              name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
-              accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
-            })}
+            onlyEnsOrAddress
           />
         ),
       },
@@ -131,11 +121,7 @@ const Vault = () => {
         cell: ({ row }) => <div>{row.original.defaultThreshold} payments</div>,
       },
     ],
-    [
-      caipNetwork?.blockExplorers?.default.name,
-      caipNetwork?.blockExplorers?.default.url,
-      theme,
-    ]
+    []
   );
 
   const table = useReactTable({
@@ -181,14 +167,11 @@ const Vault = () => {
             <span className="font-medium ml-2 text-sm">({symbol})</span>
           </h2>
           {theme && isMounted() && (
-            <Addreth
-              shortenAddress={false}
+            <EthAddress
+              onlyEnsOrAddress
+              format="long"
+              size="lg"
               address={vault as Address}
-              theme={`unified-${theme}` as ThemeDeclaration}
-              explorer={(address) => ({
-                name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
-                accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
-              })}
             />
           )}
         </div>

@@ -6,10 +6,11 @@ import { Moon, Sun } from "lucide-react";
 import Logo from "./logo";
 import Link from "next/link";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
-import { useEnsName } from "wagmi";
-import Gradient from "../gradient";
+import { useEnsAvatar, useEnsName } from "wagmi";
 import { truncateHex } from "~/lib/utils";
-import { Address } from "viem";
+import { Address, isAddress } from "viem";
+import { normalize } from "viem/ens";
+import { BlockieAvatar } from "../scaffold-eth";
 
 const Topbar = () => {
   const { setTheme, theme } = useTheme();
@@ -18,6 +19,22 @@ const Topbar = () => {
 
   const result = useEnsName({
     address: (address || "0x") as Address,
+  });
+
+  const { data: ens } = useEnsName({
+    address: address as Address,
+    chainId: 1,
+    query: {
+      enabled: isAddress(address ?? ""),
+    },
+  });
+  const { data: ensAvatar } = useEnsAvatar({
+    name: ens ? normalize(ens) : undefined,
+    chainId: 1,
+    query: {
+      enabled: Boolean(ens),
+      gcTime: 30_000,
+    },
   });
 
   return (
@@ -48,7 +65,11 @@ const Topbar = () => {
               }
             >
               {address && (
-                <Gradient className="w-5 h-5 rounded-full" address={address} />
+                <BlockieAvatar
+                  address={address as Address}
+                  ensImage={ensAvatar}
+                  size={18}
+                />
               )}
               {result?.data
                 ? result.data
