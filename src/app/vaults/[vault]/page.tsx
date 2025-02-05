@@ -166,7 +166,7 @@ const Vault = () => {
           <Tabs defaultValue="deposit">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="deposit">Deposit</TabsTrigger>
-              <TabsTrigger value="redeem">redeem</TabsTrigger>
+              <TabsTrigger value="redeem">Redeem</TabsTrigger>
             </TabsList>
             <TabsContent value="deposit">
               <Deposit vault={vault as Address} underlying={asset as Address} />
