@@ -1,14 +1,15 @@
 "use client";
 import { WagmiProvider } from "wagmi";
-import { arbitrum, mainnet } from "@reown/appkit/networks";
+import { arbitrum, arbitrumSepolia } from "@reown/appkit/networks";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { FC } from "react";
+import { WalletConnectProjectID } from "~/config";
 
 const queryClient = new QueryClient();
 
-const projectId = "7b4652113c9e211f3ca3be2da1d12c46";
+const projectId = WalletConnectProjectID();
 
 const metadata = {
   name: "AppKit",
@@ -18,7 +19,7 @@ const metadata = {
 };
 
 const wagmiAdapter = new WagmiAdapter({
-  networks: [mainnet, arbitrum],
+  networks: [arbitrum, arbitrumSepolia],
   projectId,
   ssr: true,
 });
@@ -26,7 +27,7 @@ const wagmiAdapter = new WagmiAdapter({
 // 5. Create modal
 createAppKit({
   adapters: [wagmiAdapter],
-  networks: [mainnet, arbitrum],
+  networks: [arbitrum, arbitrumSepolia],
   projectId,
   metadata,
   features: {
