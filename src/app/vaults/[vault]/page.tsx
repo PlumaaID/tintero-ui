@@ -31,13 +31,14 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import Spinner from "~/components/ui/spinner";
 
 const Vault = () => {
   const { theme } = useTheme();
   const isMounted = useIsMounted();
   const { caipNetwork } = useAppKitNetwork();
   const { vault } = useParams();
-  const [{ data }] = useQuery({
+  const [{ data, fetching }] = useQuery({
     query: TINTERO_VAULT,
     variables: {
       id: vault?.toString() ?? "",
@@ -94,47 +95,82 @@ const Vault = () => {
     NonNullable<NonNullable<typeof data>["tinteroVault"]>["loans"]
   >["items"][0];
 
-  const columns: ColumnDef<LoanColumn>[] = [
-    {
-      accessorKey: "collateralAsset",
-      header: () => <div>Collateral Asset</div>,
-      cell: ({ row }) => (
-        <Addreth
-          address={row.original.collateralAsset as Address}
-          theme={`unified-${theme}` as ThemeDeclaration}
-          explorer={(address) => ({
-            name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
-            accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
-          })}
-        />
-      ),
-    },
-    {
-      accessorKey: "beneficiary",
-      header: () => <div>Beneficiary</div>,
-      cell: ({ row }) => (
-        <Addreth
-          address={row.original.beneficiary as Address}
-          theme={`unified-${theme}` as ThemeDeclaration}
-          explorer={(address) => ({
-            name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
-            accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
-          })}
-        />
-      ),
-    },
-    {
-      accessorKey: "defaultThreshold",
-      header: "Default after missing",
-      cell: ({ row }) => <div>{row.original.defaultThreshold} payments</div>,
-    },
-  ];
+  const columns: ColumnDef<LoanColumn>[] = useMemo(
+    () => [
+      {
+        accessorKey: "collateralAsset",
+        header: () => <div>Collateral Asset</div>,
+        cell: ({ row }) => (
+          <Addreth
+            address={row.original.collateralAsset as Address}
+            theme={`unified-${theme}` as ThemeDeclaration}
+            explorer={(address) => ({
+              name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
+              accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
+            })}
+          />
+        ),
+      },
+      {
+        accessorKey: "beneficiary",
+        header: () => <div>Beneficiary</div>,
+        cell: ({ row }) => (
+          <Addreth
+            address={row.original.beneficiary as Address}
+            theme={`unified-${theme}` as ThemeDeclaration}
+            explorer={(address) => ({
+              name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
+              accountUrl: `${caipNetwork?.blockExplorers?.default.url}/address/${address}`,
+            })}
+          />
+        ),
+      },
+      {
+        accessorKey: "defaultThreshold",
+        header: "Default after missing",
+        cell: ({ row }) => <div>{row.original.defaultThreshold} payments</div>,
+      },
+    ],
+    [
+      caipNetwork?.blockExplorers?.default.name,
+      caipNetwork?.blockExplorers?.default.url,
+      theme,
+    ]
+  );
 
   const table = useReactTable({
     data: data?.tinteroVault?.loans?.items ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const content = useMemo(
+    () =>
+      fetching ? (
+        <TableRow>
+          <TableCell colSpan={columns.length}>
+            <Spinner className="my-4 flex justify-center" />
+          </TableCell>
+        </TableRow>
+      ) : table.getRowModel().rows?.length ? (
+        table.getRowModel().rows.map((row) => (
+          <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+            {row.getVisibleCells().map((cell) => (
+              <TableCell key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))
+      ) : (
+        <TableRow>
+          <TableCell colSpan={columns.length} className="h-24 text-center">
+            No results.
+          </TableCell>
+        </TableRow>
+      ),
+    [fetching, table, columns]
+  );
 
   return (
     <>
@@ -251,34 +287,7 @@ const Vault = () => {
                   </TableRow>
                 ))}
               </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
+              <TableBody>{content}</TableBody>
             </Table>
           </div>
         </div>
