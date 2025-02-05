@@ -147,7 +147,7 @@ const Vault = () => {
           {theme && isMounted() && (
             <Addreth
               shortenAddress={false}
-              address={data?.tinteroVault?.id as Address}
+              address={vault as Address}
               theme={`unified-${theme}` as ThemeDeclaration}
               explorer={(address) => ({
                 name: caipNetwork?.blockExplorers?.default.name ?? "Etherscan",
