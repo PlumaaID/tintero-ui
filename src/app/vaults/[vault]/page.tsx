@@ -13,7 +13,7 @@ import ProviderLogo from "~/components/provider-logo";
 import { useReadContract } from "wagmi";
 import { TinteroVaultABI } from "~/lib/abis/TinteroVault";
 import Deposit from "./_components/deposit";
-import Withdraw from "./_components/withdraw";
+import Redeem from "./_components/redeem";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge, Coins, Signature } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
@@ -166,16 +166,13 @@ const Vault = () => {
           <Tabs defaultValue="deposit">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="deposit">Deposit</TabsTrigger>
-              <TabsTrigger value="withdraw">Withdraw</TabsTrigger>
+              <TabsTrigger value="redeem">redeem</TabsTrigger>
             </TabsList>
             <TabsContent value="deposit">
               <Deposit vault={vault as Address} underlying={asset as Address} />
             </TabsContent>
-            <TabsContent value="withdraw">
-              <Withdraw
-                vault={vault as Address}
-                underlying={asset as Address}
-              />
+            <TabsContent value="redeem">
+              <Redeem vault={vault as Address} underlying={asset as Address} />
             </TabsContent>
           </Tabs>
         </div>
