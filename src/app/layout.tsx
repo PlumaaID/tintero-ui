@@ -6,6 +6,7 @@ import Wagmi from "~/components/wagmi";
 import Topbar from "~/components/topbar";
 import React from "react";
 import Urql from "~/components/urql-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,10 +44,11 @@ export default function RootLayout({
             <Urql>
               <Topbar />
               <div className="w-full p-6 flex-1">
-                <div className="mx-auto pt-16 max-w-screen-xl">{children}</div>
+                <div className="mx-auto pt-16 max-w-screen-2xl">{children}</div>
               </div>
             </Urql>
           </Wagmi>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

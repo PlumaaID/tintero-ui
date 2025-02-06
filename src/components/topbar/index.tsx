@@ -39,7 +39,7 @@ const Topbar = () => {
 
   return (
     <div className="border-b fixed left-0 right-0 bg-background z-10">
-      <div className="flex h-16 items-center mx-auto max-w-screen-xl px-6">
+      <div className="flex h-16 items-center mx-auto max-w-screen-2xl px-6">
         <Link href="/">
           <Logo />
         </Link>

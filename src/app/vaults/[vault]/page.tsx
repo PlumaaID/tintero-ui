@@ -43,42 +43,42 @@ const Vault = () => {
     },
     pause: !vault,
   });
-  const { data: name } = useReadContract({
+  const name = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "name",
   });
-  const { data: symbol } = useReadContract({
+  const symbol = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "symbol",
   });
-  const { data: asset } = useReadContract({
+  const asset = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "asset",
   });
-  const { data: decimals } = useReadContract({
-    address: asset as Address,
+  const decimals = useReadContract({
+    address: asset.data as Address,
     abi: TinteroVaultABI,
     functionName: "decimals",
   });
-  const { data: totalAssets } = useReadContract({
+  const totalAssets = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "totalAssets",
   });
-  const { data: sharesDecimal } = useReadContract({
+  const sharesDecimal = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "decimals",
   });
-  const { data: totalShares } = useReadContract({
+  const totalShares = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "totalSupply",
   });
-  const { data: totalAssetsLent } = useReadContract({
+  const totalAssetsLent = useReadContract({
     address: vault as Address,
     abi: TinteroVaultABI,
     functionName: "totalAssetsLent",
@@ -163,8 +163,8 @@ const Vault = () => {
       <div className="mx-2 mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold mb-2">
-            {name}
-            <span className="font-medium ml-2 text-sm">({symbol})</span>
+            {name.data}
+            <span className="font-medium ml-2 text-sm">({symbol.data})</span>
           </h2>
           {theme && isMounted() && (
             <EthAddress
@@ -181,21 +181,28 @@ const Vault = () => {
         </div>
       </div>
       <div className="grid md:grid-cols-12 gap-4">
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-12 md:col-span-3">
           <Tabs defaultValue="deposit">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="deposit">Deposit</TabsTrigger>
               <TabsTrigger value="redeem">Redeem</TabsTrigger>
             </TabsList>
             <TabsContent value="deposit">
-              <Deposit vault={vault as Address} underlying={asset as Address} />
+              <Deposit
+                onDeposit={() => {}}
+                vault={vault as Address}
+                underlying={asset.data as Address}
+              />
             </TabsContent>
             <TabsContent value="redeem">
-              <Redeem vault={vault as Address} underlying={asset as Address} />
+              <Redeem
+                vault={vault as Address}
+                underlying={asset.data as Address}
+              />
             </TabsContent>
           </Tabs>
         </div>
-        <div className="col-span-12 md:col-span-8">
+        <div className="col-span-12 md:col-span-9">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3 mt-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -205,10 +212,10 @@ const Vault = () => {
                 <Coins className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                {decimals ? (
+                {decimals.data ? (
                   <div className="text-2xl font-bold">
                     {Number(
-                      formatUnits(BigInt(totalAssets ?? 0), decimals)
+                      formatUnits(BigInt(totalAssets.data ?? 0), decimals.data)
                     ).toFixed(2)}
                   </div>
                 ) : null}
@@ -223,9 +230,12 @@ const Vault = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {sharesDecimal
+                  {sharesDecimal.data
                     ? Number(
-                        formatUnits(BigInt(totalShares ?? 0), sharesDecimal)
+                        formatUnits(
+                          BigInt(totalShares.data ?? 0),
+                          sharesDecimal.data
+                        )
                       ).toFixed(2)
                     : 0}
                 </div>
@@ -240,9 +250,12 @@ const Vault = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {decimals
+                  {decimals.data
                     ? Number(
-                        formatUnits(BigInt(totalAssetsLent ?? 0), decimals)
+                        formatUnits(
+                          BigInt(totalAssetsLent.data ?? 0),
+                          decimals.data
+                        )
                       ).toFixed(2)
                     : 0}
                 </div>
