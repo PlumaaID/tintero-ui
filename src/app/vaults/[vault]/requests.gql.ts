@@ -11,6 +11,12 @@ const TINTERO_VAULT = graphql(`
           collateralAsset
           beneficiary
           defaultThreshold
+          totalPaid
+          totalFunded
+          defaultAt
+          payments {
+            totalCount
+          }
         }
       }
     }

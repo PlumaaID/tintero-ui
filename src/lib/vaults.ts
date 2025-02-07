@@ -18,13 +18,13 @@ type Vault = {
 
 const vaults = new Map<Address, Vault>([
   [
-    "0xa5c0a11fc265f3cddb0624f73f955a3c71bad754",
+    "0xd663873df2f546e3746f3ef3c7a136cdd6c09edc",
     {
       asset: {
         name: "USDC",
         icon: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg",
       },
-      address: "0xa5c0a11fc265f3cddb0624f73f955a3c71bad754",
+      address: "0xd663873df2f546e3746f3ef3c7a136cdd6c09edc",
       provider: Provider.PlumaaID,
       totalSupply: "$1,500.00",
       netApy: "10.00%",
