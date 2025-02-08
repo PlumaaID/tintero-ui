@@ -4,7 +4,7 @@ import { useAppKitAccount } from "@reown/appkit/react";
 import { randomBytes } from "crypto";
 import { InfoIcon, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Address, Hex } from "viem";
 import {
   useReadContract,
@@ -262,4 +262,10 @@ const NewLoan = () => {
   );
 };
 
-export default NewLoan;
+const SuspenseWrapperNewLoan = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <NewLoan />
+  </Suspense>
+);
+
+export default SuspenseWrapperNewLoan;
