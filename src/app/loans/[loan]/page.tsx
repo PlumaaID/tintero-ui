@@ -166,10 +166,7 @@ const Loan = () => {
             return <Badge variant="outline">N/A</Badge>;
           return (
             <Badge variant="outline">
-              {format(
-                new Date(row.original.fundedAt * 1000),
-                "yyyy-MM-dd"
-              )}
+              {format(new Date(row.original.fundedAt * 1000), "yyyy-MM-dd")}
             </Badge>
           );
         },
@@ -745,7 +742,7 @@ const Loan = () => {
           </div>
         </div>
       </div>
-      {/* <AddPaymentsModal
+      <AddPaymentsModal
         open={addPaymentsModalOpen}
         toggleOpen={setAddPaymentsModalOpen}
         decimals={assetDecimals.data as number}
@@ -771,7 +768,7 @@ const Loan = () => {
         vault={liquidityProvider.data as Address}
         onAdd={refetch}
         lastTranchedPaymentIndex={lastTranche?.data?.[0] ?? BigInt(0)}
-      /> */}
+      />
     </div>
   );
 };

@@ -17,12 +17,11 @@ const collateralCollections = new Map<Address, CollateralCollection>([
   ],
 ]);
 
-if (process.env.NODE_ENV === "development") {
-  collateralCollections.set("0xe9115Eb3CEA01BA32E1f0f4ba5516b722761807d", {
-    name: "Endorser Mock",
-    icon: "/collateral-collections/end.svg",
-    address: "0xe9115Eb3CEA01BA32E1f0f4ba5516b722761807d",
-  });
-}
+// For testing purposes
+collateralCollections.set("0xe9115Eb3CEA01BA32E1f0f4ba5516b722761807d", {
+  name: "Endorser Mock",
+  icon: "/collateral-collections/end.svg",
+  address: "0xe9115Eb3CEA01BA32E1f0f4ba5516b722761807d",
+});
 
 export default collateralCollections;
