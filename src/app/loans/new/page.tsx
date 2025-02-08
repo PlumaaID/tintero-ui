@@ -189,7 +189,7 @@ const NewLoan = () => {
             value={collateralCollection}
             onValueChange={(value: Address) => setCollateralCollection(value)}
           >
-            <SelectTrigger className="w-[300px]">
+            <SelectTrigger className="max-w-[300px]">
               <SelectValue placeholder="Select a collateral collection" />
             </SelectTrigger>
             <SelectContent>

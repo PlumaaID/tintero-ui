@@ -118,7 +118,6 @@ export function AddPaymentsModal({
       args: [loan, collateralIds, parsedPayments],
       gas: BigInt(1_000_000),
     });
-    onAdd?.();
   };
 
   useEffect(() => {
@@ -127,8 +126,9 @@ export function AddPaymentsModal({
       toast.success("Loan requested successfully");
       setPayments([]);
       toggleOpen(false);
+      onAdd?.();
     }
-  }, [pushPaymentsReceipt.isSuccess, toggleOpen, writePushPayments]);
+  }, [pushPaymentsReceipt.isSuccess, toggleOpen, writePushPayments, onAdd]);
 
   return (
     <Dialog open={open} onOpenChange={toggleOpen}>

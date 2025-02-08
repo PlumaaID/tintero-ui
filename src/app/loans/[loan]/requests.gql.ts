@@ -10,6 +10,9 @@ const TINTERO_LOAN = graphql(`
       totalPaid
       totalFunded
       defaultAt
+      tranches {
+        totalCount
+      }
       payments {
         totalCount
         items {
@@ -20,6 +23,7 @@ const TINTERO_LOAN = graphql(`
           maturityPeriod
           gracePeriod
           interestRate
+          premiumRate
           trancheIndex
           funded
           paid
@@ -39,4 +43,12 @@ const TINTERO_LOAN = graphql(`
   }
 `);
 
-export { TINTERO_LOAN };
+const IS_MANAGER = graphql(`
+  query isManager($id: String!, $roleId: BigInt!, $managerId: String!) {
+    accessManagerMember(id: $id, roleId: $roleId, managerId: $managerId) {
+      id
+    }
+  }
+`);
+
+export { TINTERO_LOAN, IS_MANAGER };

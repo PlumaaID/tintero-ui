@@ -19,6 +19,554 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
+export type AccessManager = {
+  __typename?: 'AccessManager';
+  id: Scalars['String']['output'];
+  members?: Maybe<AccessManagerMemberPage>;
+  operations?: Maybe<AccessManagerOperationPage>;
+  roles?: Maybe<AccessManagerRolePage>;
+  targets?: Maybe<AccessManagerTargetPage>;
+};
+
+
+export type AccessManagerMembersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerMemberFilter>;
+};
+
+
+export type AccessManagerOperationsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerOperationFilter>;
+};
+
+
+export type AccessManagerRolesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerRoleFilter>;
+};
+
+
+export type AccessManagerTargetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerTargetFilter>;
+};
+
+export type AccessManagerFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccessManagerFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccessManagerFilter>>>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  id_contains?: InputMaybe<Scalars['String']['input']>;
+  id_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not?: InputMaybe<Scalars['String']['input']>;
+  id_not_contains?: InputMaybe<Scalars['String']['input']>;
+  id_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id_starts_with?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AccessManagerMember = {
+  __typename?: 'AccessManagerMember';
+  executionDelay: Scalars['Int']['output'];
+  executionDelayEffectDate: Scalars['BigInt']['output'];
+  id: Scalars['String']['output'];
+  manager?: Maybe<AccessManager>;
+  managerId: Scalars['String']['output'];
+  oldExecutionDelay?: Maybe<Scalars['Int']['output']>;
+  role?: Maybe<AccessManagerRole>;
+  roleId: Scalars['BigInt']['output'];
+  since: Scalars['Int']['output'];
+};
+
+export type AccessManagerMemberFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccessManagerMemberFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccessManagerMemberFilter>>>;
+  executionDelay?: InputMaybe<Scalars['Int']['input']>;
+  executionDelayEffectDate?: InputMaybe<Scalars['BigInt']['input']>;
+  executionDelayEffectDate_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  executionDelayEffectDate_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  executionDelayEffectDate_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  executionDelayEffectDate_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  executionDelayEffectDate_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  executionDelayEffectDate_not?: InputMaybe<Scalars['BigInt']['input']>;
+  executionDelayEffectDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  executionDelay_gt?: InputMaybe<Scalars['Int']['input']>;
+  executionDelay_gte?: InputMaybe<Scalars['Int']['input']>;
+  executionDelay_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  executionDelay_lt?: InputMaybe<Scalars['Int']['input']>;
+  executionDelay_lte?: InputMaybe<Scalars['Int']['input']>;
+  executionDelay_not?: InputMaybe<Scalars['Int']['input']>;
+  executionDelay_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  id_contains?: InputMaybe<Scalars['String']['input']>;
+  id_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not?: InputMaybe<Scalars['String']['input']>;
+  id_not_contains?: InputMaybe<Scalars['String']['input']>;
+  id_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId?: InputMaybe<Scalars['String']['input']>;
+  managerId_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_starts_with?: InputMaybe<Scalars['String']['input']>;
+  oldExecutionDelay?: InputMaybe<Scalars['Int']['input']>;
+  oldExecutionDelay_gt?: InputMaybe<Scalars['Int']['input']>;
+  oldExecutionDelay_gte?: InputMaybe<Scalars['Int']['input']>;
+  oldExecutionDelay_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  oldExecutionDelay_lt?: InputMaybe<Scalars['Int']['input']>;
+  oldExecutionDelay_lte?: InputMaybe<Scalars['Int']['input']>;
+  oldExecutionDelay_not?: InputMaybe<Scalars['Int']['input']>;
+  oldExecutionDelay_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  roleId?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  roleId_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_not?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  since?: InputMaybe<Scalars['Int']['input']>;
+  since_gt?: InputMaybe<Scalars['Int']['input']>;
+  since_gte?: InputMaybe<Scalars['Int']['input']>;
+  since_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  since_lt?: InputMaybe<Scalars['Int']['input']>;
+  since_lte?: InputMaybe<Scalars['Int']['input']>;
+  since_not?: InputMaybe<Scalars['Int']['input']>;
+  since_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+};
+
+export type AccessManagerMemberPage = {
+  __typename?: 'AccessManagerMemberPage';
+  items: Array<AccessManagerMember>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type AccessManagerOperation = {
+  __typename?: 'AccessManagerOperation';
+  caller: Scalars['String']['output'];
+  data: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  manager?: Maybe<AccessManager>;
+  managerId: Scalars['String']['output'];
+  nonce: Scalars['Int']['output'];
+  schedule: Scalars['Int']['output'];
+  status: Scalars['Int']['output'];
+  target?: Maybe<AccessManagerTarget>;
+  targetId: Scalars['String']['output'];
+};
+
+export type AccessManagerOperationFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccessManagerOperationFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccessManagerOperationFilter>>>;
+  caller?: InputMaybe<Scalars['String']['input']>;
+  caller_contains?: InputMaybe<Scalars['String']['input']>;
+  caller_ends_with?: InputMaybe<Scalars['String']['input']>;
+  caller_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  caller_not?: InputMaybe<Scalars['String']['input']>;
+  caller_not_contains?: InputMaybe<Scalars['String']['input']>;
+  caller_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  caller_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  caller_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  caller_starts_with?: InputMaybe<Scalars['String']['input']>;
+  data?: InputMaybe<Scalars['String']['input']>;
+  data_contains?: InputMaybe<Scalars['String']['input']>;
+  data_ends_with?: InputMaybe<Scalars['String']['input']>;
+  data_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  data_not?: InputMaybe<Scalars['String']['input']>;
+  data_not_contains?: InputMaybe<Scalars['String']['input']>;
+  data_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  data_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  data_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  data_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  id_contains?: InputMaybe<Scalars['String']['input']>;
+  id_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not?: InputMaybe<Scalars['String']['input']>;
+  id_not_contains?: InputMaybe<Scalars['String']['input']>;
+  id_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId?: InputMaybe<Scalars['String']['input']>;
+  managerId_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_starts_with?: InputMaybe<Scalars['String']['input']>;
+  nonce?: InputMaybe<Scalars['Int']['input']>;
+  nonce_gt?: InputMaybe<Scalars['Int']['input']>;
+  nonce_gte?: InputMaybe<Scalars['Int']['input']>;
+  nonce_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  nonce_lt?: InputMaybe<Scalars['Int']['input']>;
+  nonce_lte?: InputMaybe<Scalars['Int']['input']>;
+  nonce_not?: InputMaybe<Scalars['Int']['input']>;
+  nonce_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  schedule?: InputMaybe<Scalars['Int']['input']>;
+  schedule_gt?: InputMaybe<Scalars['Int']['input']>;
+  schedule_gte?: InputMaybe<Scalars['Int']['input']>;
+  schedule_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  schedule_lt?: InputMaybe<Scalars['Int']['input']>;
+  schedule_lte?: InputMaybe<Scalars['Int']['input']>;
+  schedule_not?: InputMaybe<Scalars['Int']['input']>;
+  schedule_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  status?: InputMaybe<Scalars['Int']['input']>;
+  status_gt?: InputMaybe<Scalars['Int']['input']>;
+  status_gte?: InputMaybe<Scalars['Int']['input']>;
+  status_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  status_lt?: InputMaybe<Scalars['Int']['input']>;
+  status_lte?: InputMaybe<Scalars['Int']['input']>;
+  status_not?: InputMaybe<Scalars['Int']['input']>;
+  status_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  targetId?: InputMaybe<Scalars['String']['input']>;
+  targetId_contains?: InputMaybe<Scalars['String']['input']>;
+  targetId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  targetId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  targetId_not?: InputMaybe<Scalars['String']['input']>;
+  targetId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  targetId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  targetId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  targetId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  targetId_starts_with?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AccessManagerOperationPage = {
+  __typename?: 'AccessManagerOperationPage';
+  items: Array<AccessManagerOperation>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type AccessManagerPage = {
+  __typename?: 'AccessManagerPage';
+  items: Array<AccessManager>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type AccessManagerRole = {
+  __typename?: 'AccessManagerRole';
+  admin?: Maybe<AccessManagerRole>;
+  adminId: Scalars['BigInt']['output'];
+  adminOf?: Maybe<AccessManagerRolePage>;
+  functions?: Maybe<AccessManagerTargetFunctionPage>;
+  grantDelay: Scalars['Int']['output'];
+  grantDelayEffectDate: Scalars['BigInt']['output'];
+  guardian?: Maybe<AccessManagerRole>;
+  guardianId: Scalars['BigInt']['output'];
+  guardianOf?: Maybe<AccessManagerRolePage>;
+  id: Scalars['BigInt']['output'];
+  label?: Maybe<Scalars['String']['output']>;
+  manager?: Maybe<AccessManager>;
+  managerId: Scalars['String']['output'];
+  members?: Maybe<AccessManagerMemberPage>;
+  oldGrantDelay?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type AccessManagerRoleAdminOfArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerRoleFilter>;
+};
+
+
+export type AccessManagerRoleFunctionsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerTargetFunctionFilter>;
+};
+
+
+export type AccessManagerRoleGuardianOfArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerRoleFilter>;
+};
+
+
+export type AccessManagerRoleMembersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerMemberFilter>;
+};
+
+export type AccessManagerRoleFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccessManagerRoleFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccessManagerRoleFilter>>>;
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  adminId_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  adminId_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  adminId_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  adminId_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  adminId_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  adminId_not?: InputMaybe<Scalars['BigInt']['input']>;
+  adminId_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  grantDelay?: InputMaybe<Scalars['Int']['input']>;
+  grantDelayEffectDate?: InputMaybe<Scalars['BigInt']['input']>;
+  grantDelayEffectDate_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  grantDelayEffectDate_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  grantDelayEffectDate_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  grantDelayEffectDate_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  grantDelayEffectDate_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  grantDelayEffectDate_not?: InputMaybe<Scalars['BigInt']['input']>;
+  grantDelayEffectDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  grantDelay_gt?: InputMaybe<Scalars['Int']['input']>;
+  grantDelay_gte?: InputMaybe<Scalars['Int']['input']>;
+  grantDelay_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  grantDelay_lt?: InputMaybe<Scalars['Int']['input']>;
+  grantDelay_lte?: InputMaybe<Scalars['Int']['input']>;
+  grantDelay_not?: InputMaybe<Scalars['Int']['input']>;
+  grantDelay_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  guardianId?: InputMaybe<Scalars['BigInt']['input']>;
+  guardianId_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  guardianId_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  guardianId_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  guardianId_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  guardianId_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  guardianId_not?: InputMaybe<Scalars['BigInt']['input']>;
+  guardianId_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  id_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  id_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  id_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  id_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  id_not?: InputMaybe<Scalars['BigInt']['input']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  label_contains?: InputMaybe<Scalars['String']['input']>;
+  label_ends_with?: InputMaybe<Scalars['String']['input']>;
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  label_not?: InputMaybe<Scalars['String']['input']>;
+  label_not_contains?: InputMaybe<Scalars['String']['input']>;
+  label_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  label_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  label_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId?: InputMaybe<Scalars['String']['input']>;
+  managerId_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_starts_with?: InputMaybe<Scalars['String']['input']>;
+  oldGrantDelay?: InputMaybe<Scalars['Int']['input']>;
+  oldGrantDelay_gt?: InputMaybe<Scalars['Int']['input']>;
+  oldGrantDelay_gte?: InputMaybe<Scalars['Int']['input']>;
+  oldGrantDelay_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  oldGrantDelay_lt?: InputMaybe<Scalars['Int']['input']>;
+  oldGrantDelay_lte?: InputMaybe<Scalars['Int']['input']>;
+  oldGrantDelay_not?: InputMaybe<Scalars['Int']['input']>;
+  oldGrantDelay_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+};
+
+export type AccessManagerRolePage = {
+  __typename?: 'AccessManagerRolePage';
+  items: Array<AccessManagerRole>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type AccessManagerTarget = {
+  __typename?: 'AccessManagerTarget';
+  adminDelay: Scalars['Int']['output'];
+  adminDelayEffectDate: Scalars['BigInt']['output'];
+  closed: Scalars['Boolean']['output'];
+  functions?: Maybe<AccessManagerTargetFunctionPage>;
+  id: Scalars['String']['output'];
+  manager?: Maybe<AccessManager>;
+  managerId: Scalars['String']['output'];
+  oldAdminDelay?: Maybe<Scalars['Int']['output']>;
+  operations?: Maybe<AccessManagerOperationPage>;
+};
+
+
+export type AccessManagerTargetFunctionsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerTargetFunctionFilter>;
+};
+
+
+export type AccessManagerTargetOperationsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerOperationFilter>;
+};
+
+export type AccessManagerTargetFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccessManagerTargetFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccessManagerTargetFilter>>>;
+  adminDelay?: InputMaybe<Scalars['Int']['input']>;
+  adminDelayEffectDate?: InputMaybe<Scalars['BigInt']['input']>;
+  adminDelayEffectDate_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  adminDelayEffectDate_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  adminDelayEffectDate_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  adminDelayEffectDate_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  adminDelayEffectDate_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  adminDelayEffectDate_not?: InputMaybe<Scalars['BigInt']['input']>;
+  adminDelayEffectDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  adminDelay_gt?: InputMaybe<Scalars['Int']['input']>;
+  adminDelay_gte?: InputMaybe<Scalars['Int']['input']>;
+  adminDelay_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  adminDelay_lt?: InputMaybe<Scalars['Int']['input']>;
+  adminDelay_lte?: InputMaybe<Scalars['Int']['input']>;
+  adminDelay_not?: InputMaybe<Scalars['Int']['input']>;
+  adminDelay_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  closed?: InputMaybe<Scalars['Boolean']['input']>;
+  closed_in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  closed_not?: InputMaybe<Scalars['Boolean']['input']>;
+  closed_not_in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  id_contains?: InputMaybe<Scalars['String']['input']>;
+  id_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not?: InputMaybe<Scalars['String']['input']>;
+  id_not_contains?: InputMaybe<Scalars['String']['input']>;
+  id_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId?: InputMaybe<Scalars['String']['input']>;
+  managerId_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_starts_with?: InputMaybe<Scalars['String']['input']>;
+  oldAdminDelay?: InputMaybe<Scalars['Int']['input']>;
+  oldAdminDelay_gt?: InputMaybe<Scalars['Int']['input']>;
+  oldAdminDelay_gte?: InputMaybe<Scalars['Int']['input']>;
+  oldAdminDelay_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  oldAdminDelay_lt?: InputMaybe<Scalars['Int']['input']>;
+  oldAdminDelay_lte?: InputMaybe<Scalars['Int']['input']>;
+  oldAdminDelay_not?: InputMaybe<Scalars['Int']['input']>;
+  oldAdminDelay_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+};
+
+export type AccessManagerTargetFunction = {
+  __typename?: 'AccessManagerTargetFunction';
+  id: Scalars['String']['output'];
+  managerId: Scalars['String']['output'];
+  role?: Maybe<AccessManagerRole>;
+  roleId: Scalars['BigInt']['output'];
+  target?: Maybe<AccessManagerTarget>;
+  targetId: Scalars['String']['output'];
+};
+
+export type AccessManagerTargetFunctionFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccessManagerTargetFunctionFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccessManagerTargetFunctionFilter>>>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  id_contains?: InputMaybe<Scalars['String']['input']>;
+  id_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not?: InputMaybe<Scalars['String']['input']>;
+  id_not_contains?: InputMaybe<Scalars['String']['input']>;
+  id_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId?: InputMaybe<Scalars['String']['input']>;
+  managerId_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  managerId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  managerId_starts_with?: InputMaybe<Scalars['String']['input']>;
+  roleId?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  roleId_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_not?: InputMaybe<Scalars['BigInt']['input']>;
+  roleId_not_in?: InputMaybe<Array<InputMaybe<Scalars['BigInt']['input']>>>;
+  targetId?: InputMaybe<Scalars['String']['input']>;
+  targetId_contains?: InputMaybe<Scalars['String']['input']>;
+  targetId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  targetId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  targetId_not?: InputMaybe<Scalars['String']['input']>;
+  targetId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  targetId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  targetId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  targetId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  targetId_starts_with?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AccessManagerTargetFunctionPage = {
+  __typename?: 'AccessManagerTargetFunctionPage';
+  items: Array<AccessManagerTargetFunction>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type AccessManagerTargetPage = {
+  __typename?: 'AccessManagerTargetPage';
+  items: Array<AccessManagerTarget>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
 export type DailyBucketMxnusdRate = {
   __typename?: 'DailyBucketMXNUSDRate';
   average: Scalars['Float']['output'];
@@ -1107,6 +1655,18 @@ export type PageInfo = {
 export type Query = {
   __typename?: 'Query';
   _meta?: Maybe<Meta>;
+  accessManager?: Maybe<AccessManager>;
+  accessManagerMember?: Maybe<AccessManagerMember>;
+  accessManagerMembers: AccessManagerMemberPage;
+  accessManagerOperation?: Maybe<AccessManagerOperation>;
+  accessManagerOperations: AccessManagerOperationPage;
+  accessManagerRole?: Maybe<AccessManagerRole>;
+  accessManagerRoles: AccessManagerRolePage;
+  accessManagerTarget?: Maybe<AccessManagerTarget>;
+  accessManagerTargetFunction?: Maybe<AccessManagerTargetFunction>;
+  accessManagerTargetFunctions: AccessManagerTargetFunctionPage;
+  accessManagerTargets: AccessManagerTargetPage;
+  accessManagers: AccessManagerPage;
   dailyBucketMXNUSDRate?: Maybe<DailyBucketMxnusdRate>;
   dailyBucketMXNUSDRates: DailyBucketMxnusdRatePage;
   dailyBucketUSDCMXNRate?: Maybe<DailyBucketUsdcmxnRate>;
@@ -1145,6 +1705,102 @@ export type Query = {
   weeklyBucketUSDCMXNRates: WeeklyBucketUsdcmxnRatePage;
   weeklyBucketUSDCUSDRate?: Maybe<WeeklyBucketUsdcusdRate>;
   weeklyBucketUSDCUSDRates: WeeklyBucketUsdcusdRatePage;
+};
+
+
+export type QueryAccessManagerArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryAccessManagerMemberArgs = {
+  id: Scalars['String']['input'];
+  managerId: Scalars['String']['input'];
+  roleId: Scalars['BigInt']['input'];
+};
+
+
+export type QueryAccessManagerMembersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerMemberFilter>;
+};
+
+
+export type QueryAccessManagerOperationArgs = {
+  id: Scalars['String']['input'];
+  managerId: Scalars['String']['input'];
+};
+
+
+export type QueryAccessManagerOperationsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerOperationFilter>;
+};
+
+
+export type QueryAccessManagerRoleArgs = {
+  id: Scalars['BigInt']['input'];
+  managerId: Scalars['String']['input'];
+};
+
+
+export type QueryAccessManagerRolesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerRoleFilter>;
+};
+
+
+export type QueryAccessManagerTargetArgs = {
+  id: Scalars['String']['input'];
+  managerId: Scalars['String']['input'];
+};
+
+
+export type QueryAccessManagerTargetFunctionArgs = {
+  id: Scalars['String']['input'];
+  targetId: Scalars['String']['input'];
+};
+
+
+export type QueryAccessManagerTargetFunctionsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerTargetFunctionFilter>;
+};
+
+
+export type QueryAccessManagerTargetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerTargetFilter>;
+};
+
+
+export type QueryAccessManagersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<AccessManagerFilter>;
 };
 
 
@@ -2263,7 +2919,32 @@ export type TinteroLoanQueryVariables = Exact<{
 }>;
 
 
-export type TinteroLoanQuery = { __typename?: 'Query', tinteroLoan?: { __typename?: 'TinteroLoan', id: string, collateralAsset: string, beneficiary: string, defaultThreshold: number, totalPaid: number, totalFunded: number, defaultAt?: any | null, payments?: { __typename?: 'TinteroPaymentPage', totalCount: number, items: Array<{ __typename?: 'TinteroPayment', index: any, collateralId: any, principal: any, fundedAt: any, maturityPeriod: any, gracePeriod: any, interestRate: any, trancheIndex?: any | null, funded: boolean, paid: boolean, withdrawn: boolean, repossessed: boolean, interestPaid: any, premiumInterestPaid: any, repossessionRecipient?: string | null, tranche?: { __typename?: 'TinteroTranche', index: any, paymentIndex: any, receiver: string } | null }> } | null } | null };
+export type TinteroLoanQuery = { __typename?: 'Query', tinteroLoan?: { __typename?: 'TinteroLoan', id: string, collateralAsset: string, beneficiary: string, defaultThreshold: number, totalPaid: number, totalFunded: number, defaultAt?: any | null, tranches?: { __typename?: 'TinteroTranchePage', totalCount: number } | null, payments?: { __typename?: 'TinteroPaymentPage', totalCount: number, items: Array<{ __typename?: 'TinteroPayment', index: any, collateralId: any, principal: any, fundedAt: any, maturityPeriod: any, gracePeriod: any, interestRate: any, premiumRate: any, trancheIndex?: any | null, funded: boolean, paid: boolean, withdrawn: boolean, repossessed: boolean, interestPaid: any, premiumInterestPaid: any, repossessionRecipient?: string | null, tranche?: { __typename?: 'TinteroTranche', index: any, paymentIndex: any, receiver: string } | null }> } | null } | null };
+
+export type IsManagerQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  roleId: Scalars['BigInt']['input'];
+  managerId: Scalars['String']['input'];
+}>;
+
+
+export type IsManagerQuery = { __typename?: 'Query', accessManagerMember?: { __typename?: 'AccessManagerMember', id: string } | null };
+
+export type VaultRowDelegatesQueryVariables = Exact<{
+  roleId: Scalars['BigInt']['input'];
+  managerId: Scalars['String']['input'];
+}>;
+
+
+export type VaultRowDelegatesQuery = { __typename?: 'Query', accessManagerMembers: { __typename?: 'AccessManagerMemberPage', items: Array<{ __typename?: 'AccessManagerMember', id: string }> } };
+
+export type VaultRowManagersQueryVariables = Exact<{
+  roleId: Scalars['BigInt']['input'];
+  managerId: Scalars['String']['input'];
+}>;
+
+
+export type VaultRowManagersQuery = { __typename?: 'Query', accessManagerMembers: { __typename?: 'AccessManagerMemberPage', items: Array<{ __typename?: 'AccessManagerMember', id: string }> } };
 
 export type TinteroVaultQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -2272,6 +2953,19 @@ export type TinteroVaultQueryVariables = Exact<{
 
 export type TinteroVaultQuery = { __typename?: 'Query', tinteroVault?: { __typename?: 'TinteroVault', id: string, asset: string, loans?: { __typename?: 'TinteroLoanPage', items: Array<{ __typename?: 'TinteroLoan', id: string, collateralAsset: string, beneficiary: string, defaultThreshold: number, totalPaid: number, totalFunded: number, defaultAt?: any | null, payments?: { __typename?: 'TinteroPaymentPage', totalCount: number } | null }> } | null } | null };
 
+export type IsDelegateQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  roleId: Scalars['BigInt']['input'];
+  managerId: Scalars['String']['input'];
+}>;
 
-export const TinteroLoanDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"tinteroLoan"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tinteroLoan"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"collateralAsset"}},{"kind":"Field","name":{"kind":"Name","value":"beneficiary"}},{"kind":"Field","name":{"kind":"Name","value":"defaultThreshold"}},{"kind":"Field","name":{"kind":"Name","value":"totalPaid"}},{"kind":"Field","name":{"kind":"Name","value":"totalFunded"}},{"kind":"Field","name":{"kind":"Name","value":"defaultAt"}},{"kind":"Field","name":{"kind":"Name","value":"payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"index"}},{"kind":"Field","name":{"kind":"Name","value":"collateralId"}},{"kind":"Field","name":{"kind":"Name","value":"principal"}},{"kind":"Field","name":{"kind":"Name","value":"fundedAt"}},{"kind":"Field","name":{"kind":"Name","value":"maturityPeriod"}},{"kind":"Field","name":{"kind":"Name","value":"gracePeriod"}},{"kind":"Field","name":{"kind":"Name","value":"interestRate"}},{"kind":"Field","name":{"kind":"Name","value":"trancheIndex"}},{"kind":"Field","name":{"kind":"Name","value":"funded"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"withdrawn"}},{"kind":"Field","name":{"kind":"Name","value":"repossessed"}},{"kind":"Field","name":{"kind":"Name","value":"interestPaid"}},{"kind":"Field","name":{"kind":"Name","value":"premiumInterestPaid"}},{"kind":"Field","name":{"kind":"Name","value":"repossessionRecipient"}},{"kind":"Field","name":{"kind":"Name","value":"tranche"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"index"}},{"kind":"Field","name":{"kind":"Name","value":"paymentIndex"}},{"kind":"Field","name":{"kind":"Name","value":"receiver"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<TinteroLoanQuery, TinteroLoanQueryVariables>;
+
+export type IsDelegateQuery = { __typename?: 'Query', accessManagerMember?: { __typename?: 'AccessManagerMember', id: string } | null };
+
+
+export const TinteroLoanDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"tinteroLoan"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tinteroLoan"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"collateralAsset"}},{"kind":"Field","name":{"kind":"Name","value":"beneficiary"}},{"kind":"Field","name":{"kind":"Name","value":"defaultThreshold"}},{"kind":"Field","name":{"kind":"Name","value":"totalPaid"}},{"kind":"Field","name":{"kind":"Name","value":"totalFunded"}},{"kind":"Field","name":{"kind":"Name","value":"defaultAt"}},{"kind":"Field","name":{"kind":"Name","value":"tranches"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"index"}},{"kind":"Field","name":{"kind":"Name","value":"collateralId"}},{"kind":"Field","name":{"kind":"Name","value":"principal"}},{"kind":"Field","name":{"kind":"Name","value":"fundedAt"}},{"kind":"Field","name":{"kind":"Name","value":"maturityPeriod"}},{"kind":"Field","name":{"kind":"Name","value":"gracePeriod"}},{"kind":"Field","name":{"kind":"Name","value":"interestRate"}},{"kind":"Field","name":{"kind":"Name","value":"premiumRate"}},{"kind":"Field","name":{"kind":"Name","value":"trancheIndex"}},{"kind":"Field","name":{"kind":"Name","value":"funded"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"withdrawn"}},{"kind":"Field","name":{"kind":"Name","value":"repossessed"}},{"kind":"Field","name":{"kind":"Name","value":"interestPaid"}},{"kind":"Field","name":{"kind":"Name","value":"premiumInterestPaid"}},{"kind":"Field","name":{"kind":"Name","value":"repossessionRecipient"}},{"kind":"Field","name":{"kind":"Name","value":"tranche"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"index"}},{"kind":"Field","name":{"kind":"Name","value":"paymentIndex"}},{"kind":"Field","name":{"kind":"Name","value":"receiver"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<TinteroLoanQuery, TinteroLoanQueryVariables>;
+export const IsManagerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"isManager"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessManagerMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"roleId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}}},{"kind":"Argument","name":{"kind":"Name","value":"managerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<IsManagerQuery, IsManagerQueryVariables>;
+export const VaultRowDelegatesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"vaultRowDelegates"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessManagerMembers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"roleId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"managerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<VaultRowDelegatesQuery, VaultRowDelegatesQueryVariables>;
+export const VaultRowManagersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"vaultRowManagers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessManagerMembers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"roleId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"managerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<VaultRowManagersQuery, VaultRowManagersQueryVariables>;
 export const TinteroVaultDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"tinteroVault"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tinteroVault"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"asset"}},{"kind":"Field","name":{"kind":"Name","value":"loans"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"collateralAsset"}},{"kind":"Field","name":{"kind":"Name","value":"beneficiary"}},{"kind":"Field","name":{"kind":"Name","value":"defaultThreshold"}},{"kind":"Field","name":{"kind":"Name","value":"totalPaid"}},{"kind":"Field","name":{"kind":"Name","value":"totalFunded"}},{"kind":"Field","name":{"kind":"Name","value":"defaultAt"}},{"kind":"Field","name":{"kind":"Name","value":"payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<TinteroVaultQuery, TinteroVaultQueryVariables>;
+export const IsDelegateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"isDelegate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessManagerMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"roleId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roleId"}}},{"kind":"Argument","name":{"kind":"Name","value":"managerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"managerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<IsDelegateQuery, IsDelegateQueryVariables>;

@@ -125,7 +125,7 @@ const PaymentForm: FC<PaymentFormProps> = ({
               <TooltipTrigger>
                 <InfoIcon className="ml-2 w-3 h-3" />
               </TooltipTrigger>
-              <TooltipContent className="w-[300px]">
+              <TooltipContent className="max-w-[300px]">
                 <p>
                   An ERC-712 token ID that can be taken back in case the loan is
                   default.
@@ -221,7 +221,7 @@ const PaymentForm: FC<PaymentFormProps> = ({
                 <TooltipTrigger>
                   <InfoIcon className="ml-2 w-3 h-3" />
                 </TooltipTrigger>
-                <TooltipContent className="w-[300px]">
+                <TooltipContent className="max-w-[300px]">
                   <p>Accrues since the funded date until payment.</p>
                 </TooltipContent>
               </Tooltip>
@@ -244,7 +244,7 @@ const PaymentForm: FC<PaymentFormProps> = ({
                 <TooltipTrigger>
                   <InfoIcon className="ml-2 w-3 h-3" />
                 </TooltipTrigger>
-                <TooltipContent className="w-[300px]">
+                <TooltipContent className="max-w-[300px]">
                   <p>
                     Accrues since the default date until payment (on top of
                     regular interest rate).

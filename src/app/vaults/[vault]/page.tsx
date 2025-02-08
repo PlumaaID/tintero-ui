@@ -1,22 +1,29 @@
 "use client";
-import React, { useMemo } from "react";
-import { TINTERO_VAULT } from "./requests.gql";
+import React, { useMemo, useState } from "react";
+import { IS_DELEGATE, TINTERO_DELEGATES, TINTERO_VAULT } from "./requests.gql";
 import { useParams } from "next/navigation";
 import { useQuery } from "@urql/next";
 import { Address, formatUnits, getAddress } from "viem";
 import { useTheme } from "next-themes";
 import useIsMounted from "~/hooks/use-is-mounted";
-import vaults from "~/lib/vaults";
+import vaults, { ACCESS_MANAGER } from "~/lib/vaults";
 import ProviderLogo from "~/components/provider-logo";
 import { useReadContract } from "wagmi";
 import { TinteroVaultABI } from "~/lib/abis/TinteroVault";
 import Deposit from "./_components/deposit";
 import Redeem from "./_components/redeem";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import {
   BadgeIcon,
   ChevronRight,
   Coins,
+  HandCoins,
   HandCoinsIcon,
   Signature,
 } from "lucide-react";
@@ -43,12 +50,20 @@ import { Button } from "~/components/ui/button";
 import Link from "next/link";
 import { getStatus } from "~/lib/loan";
 import { TinteroLoan } from "~/gql/graphql";
+import { useAppKitAccount } from "@reown/appkit/react";
+import AskDelegationModal from "./_components/ask-delegation-modal";
 
 const Vault = () => {
   const { theme } = useTheme();
   const isMounted = useIsMounted();
+  const [askDelegationModalOpen, setAskDelegationModalOpen] = useState(false);
   const { vault: rawVault } = useParams();
   const vault = getAddress(rawVault as string) as Address;
+  const { address } = useAppKitAccount();
+  const vaultDef = useMemo(
+    () => vaults.get(vault.toLowerCase() as Address),
+    [vault]
+  );
   const [{ data, fetching }] = useQuery({
     query: TINTERO_VAULT,
     variables: {
@@ -96,8 +111,34 @@ const Vault = () => {
     abi: TinteroVaultABI,
     functionName: "totalAssetsLent",
   });
+  const [delegatesRes] = useQuery({
+    query: TINTERO_DELEGATES,
+    variables: {
+      roleId: vaultDef?.delegateRole.toString(),
+      managerId: ACCESS_MANAGER,
+    },
+    pause: !vaultDef,
+  });
+  const [managersRes] = useQuery({
+    query: TINTERO_DELEGATES,
+    variables: {
+      roleId: vaultDef?.managerRole.toString(),
+      managerId: ACCESS_MANAGER,
+    },
+    pause: !vaultDef,
+  });
+  const [isDelegateRes] = useQuery({
+    query: IS_DELEGATE,
+    variables: {
+      id: address?.toLowerCase() as string,
+      roleId: vaultDef?.delegateRole.toString(),
+      managerId: ACCESS_MANAGER,
+    },
+    pause: !vaultDef || !address,
+  });
 
-  const vaultDef = useMemo(() => vaults.get(vault as Address), [vault]);
+  const managers = managersRes.data?.accessManagerMembers.items;
+  const delegates = delegatesRes.data?.accessManagerMembers.items;
 
   type LoanColumn = NonNullable<
     NonNullable<NonNullable<typeof data>["tinteroVault"]>["loans"]
@@ -206,10 +247,23 @@ const Vault = () => {
       <div className="mx-2 mb-4 flex items-center justify-between">
         <div>
           {name.data && symbol.data ? (
-            <h2 className="text-3xl font-bold mb-2">
-              {name.data}
-              <span className="font-medium ml-2 text-sm">({symbol.data})</span>
-            </h2>
+            <div className="flex items-center space-x-4">
+              <h2 className="text-3xl font-bold mb-2">
+                {name.data}
+                <span className="font-medium ml-2 text-sm">
+                  ({symbol.data})
+                </span>
+              </h2>
+              {isDelegateRes.data?.accessManagerMember?.id ? (
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => setAskDelegationModalOpen(true)}
+                >
+                  Ask delegation <HandCoins className="w-4 h-4" />
+                </Button>
+              ) : null}
+            </div>
           ) : (
             <Skeleton className="h-8 my-2 w-[400px]" />
           )}
@@ -256,6 +310,42 @@ const Vault = () => {
             ) : (
               <Skeleton className="h-60 mt-4 w-full" />
             )}
+            <Card className="mt-3">
+              <CardHeader>
+                <CardTitle>Managers</CardTitle>
+                <CardDescription>
+                  Managers can fund loan requests, specify tranches, repossess
+                  collateral and renegotiate terms of each loan.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {managers?.map(({ id }) => (
+                  <EthAddress
+                    key={id}
+                    address={id as Address}
+                    onlyEnsOrAddress
+                  />
+                ))}
+              </CardContent>
+            </Card>
+            <Card className="mt-3">
+              <CardHeader>
+                <CardTitle>Delegates</CardTitle>
+                <CardDescription>
+                  Delegates can ask for assets from the vault to maximize the
+                  yield of the assets.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {delegates?.map(({ id }) => (
+                  <EthAddress
+                    key={id}
+                    address={id as Address}
+                    onlyEnsOrAddress
+                  />
+                ))}
+              </CardContent>
+            </Card>
           </Tabs>
         </div>
         <div className="col-span-12 md:col-span-9">
@@ -367,6 +457,15 @@ const Vault = () => {
           </div>
         </div>
       </div>
+      {Number.isFinite(decimals.data) && symbol.data && (
+        <AskDelegationModal
+          open={askDelegationModalOpen}
+          toggleOpen={setAskDelegationModalOpen}
+          vault={vault}
+          assetDecimals={decimals.data as number}
+          assetSymbol={symbol.data as string}
+        />
+      )}
     </>
   );
 };

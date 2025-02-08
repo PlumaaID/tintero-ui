@@ -3,33 +3,24 @@ import { Card } from "~/components/ui/card";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { useTheme } from "next-themes";
-import { Address } from "viem";
-import { Button } from "~/components/ui/button";
 import Stats from "~/components/stats";
 import {
   BriefcaseBusiness,
-  ChartNoAxesColumn,
-  ChevronRightIcon,
   Coins,
   DollarSign,
+  Handshake,
   PaintBucket,
   SquareStack,
 } from "lucide-react";
-import Link from "next/link";
 import vaults from "~/lib/vaults";
-import Image from "next/image";
 import { useMemo } from "react";
-import ProviderLogo from "~/components/provider-logo";
-import { Address as EthAddress } from "~/components/scaffold-eth";
+import VaultRow from "./_components/vault-row";
 
 export default function Vaults() {
-  const { theme } = useTheme();
   const vaultValues = useMemo(() => Array.from(vaults.values()), []);
 
   return (
@@ -57,17 +48,17 @@ export default function Vaults() {
               <TableHead>
                 <div className="flex items-center">
                   <DollarSign className="w-4 h-4 mr-2" />
-                  Total Supply
+                  Total Assets
                 </div>
               </TableHead>
               <TableHead>
                 <div className="flex items-center">
-                  <ChartNoAxesColumn className="w-4 h-4 mr-2" /> 30-day APY
+                  <BriefcaseBusiness className="w-4 h-4 mr-2" /> Managers
                 </div>
               </TableHead>
               <TableHead>
                 <div className="flex items-center">
-                  <BriefcaseBusiness className="w-4 h-4 mr-2" /> Manager
+                  <Handshake className="w-4 h-4 mr-2" /> Delegates
                 </div>
               </TableHead>
               <TableHead>
@@ -79,39 +70,7 @@ export default function Vaults() {
           </TableHeader>
           <TableBody>
             {vaultValues.map((vault) => (
-              <TableRow className="cursor-pointer" key={vault.provider}>
-                <TableCell className="font-bold">
-                  <Image
-                    src={vault.asset.icon}
-                    alt={vault.asset.name}
-                    width={26}
-                    height={26}
-                  />
-                </TableCell>
-                <TableCell className="font-bold">
-                  <ProviderLogo provider={vault.provider} />
-                </TableCell>
-                <TableCell className="font-medium">
-                  <Button variant="ghost">{vault.totalSupply}</Button>
-                </TableCell>
-                <TableCell className="font-medium">{vault.netApy}</TableCell>
-                <TableCell>
-                  {theme && (
-                    <EthAddress
-                      address={vault.manager as Address}
-                      onlyEnsOrAddress
-                    />
-                  )}
-                </TableCell>
-                <TableCell>
-                  <Link href={`/vaults/${vault.address}`}>
-                    <Button size="sm">
-                      <span>View</span>
-                      <ChevronRightIcon className="ml-1" />
-                    </Button>
-                  </Link>
-                </TableCell>
-              </TableRow>
+              <VaultRow vault={vault} key={vault.provider} />
             ))}
           </TableBody>
         </Table>
